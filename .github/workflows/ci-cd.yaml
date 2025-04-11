@@ -7,6 +7,7 @@ on:
 
 jobs:
 
+  # CI: lancement des tests automatisés (variables d'environnement de test)
   build_et_test:
     runs-on: ubuntu-latest
 
@@ -44,8 +45,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      # debug dans la pipe
+      - name: DEBUG LOGS GITHUB ACTIONS
+        run: ls -R
+
+      # Erreur path /migrations :
       - name: Créer la base et exécuter les migrations
-        run: npx sequelize-cli db:migrate --env test
+        run: npx sequelize-cli db:migrate --env test --migrations-path src/migrations
 
       - name: Tests unitaires
         run: npm test
