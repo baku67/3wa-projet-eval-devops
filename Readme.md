@@ -1,19 +1,27 @@
 # Présentation
-Projet api de lecture d'articles en Node/Express, ORM Sequelize, BDD MySQL, PhpMyAdmin, Jest, Github Actions, Docker Hub.
+Projet api de lecture d'articles avec: <br>
+Node/Express, <br>
+ORM Sequelize, <br>
+BDD MySQL, <br>
+PhpMyAdmin, <br>
+Jest, <br>
+Github Actions, <br> 
+Docker Hub <br>
 
 
 # Installation et lancement du projet Dockerisé
-"npm install"
-"docker-compose up --build -d" (pour lancer le service docker BDD MySQL, Node, et PhpMyAdmin, exécuter les migrations, ajouter les fictures d'articles)
+"npm install" <br>
+"docker-compose up --build -d" (pour lancer le service docker BDD MySQL, Node, et PhpMyAdmin, exécuter les migrations, ajouter les fictures d'articles) <br>
+
 (
-    logs des conteneurs si lancé avec "-d": 
-        "docker-compose logs node-app"
-        "docker-compose logs database" (voir le HealthCheck par exemple)
-)
+    logs des conteneurs si lancé avec "-d":  <br>
+        "docker-compose logs node-app" <br>
+        "docker-compose logs database" (voir le HealthCheck par exemple)) 
+
 PhpMyAdmin: http://localhost:8080 ("dbuser", "dbmpd", BDD: "dbname")
 
-Routes API de l'app:
-http://localhost:3000
+Routes API de l'app: <br>
+http://localhost:3000 <br>
 http://localhost:3000/articles
 
 
@@ -30,12 +38,12 @@ Entrypoint du Dockerfile Node:
 
 
 # Testing
-Tests unitaires avec Jest (app/tests/articles.test.js)
+Tests unitaires avec Jest (app/tests/articles.test.js) <br>
 "docker exec -it node_app npm test" (depuis le conteneur docker)
 
-On teste:
-    - le statut de la requête api get /articles
-    - le nombre de résultats dans la réponse (2 articles de tests => expect 2)
+On teste: <br>
+    - le statut de la requête api get /articles <br>
+    - le nombre de résultats dans la réponse (2 articles de tests => expect 2) <br>
     - le fait que les articles possèdent une propriété "titre" et "contenu" 
 
 
