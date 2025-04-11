@@ -1,0 +1,64 @@
+name: Pipeline CI/CD evel
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build_et_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Tests unitaires
+        run: npm test
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build_et_test
+    if: success()  # Si les test passent
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # login DockerHub
+      - name: Login DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }} # secret github
+          password: ${{ secrets.DOCKER_PASSWORD }} # secret github
+
+      - name: Build de l'image Docker
+        run: docker build -t myrepo/eval-devops:latest .
+
+      - name: Upload de l'image sur DockerHub
+        run: docker push myrepo/eval-devops:latest
+
+
+  ###  PARTIE NON FONCTIONNELLE  ####################################################
+
+      # Déployer sur un serveur via SSH (AWS EC2)
+      - name: Déploiement
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2_HOST }} # secret github
+          username: ec2-user 
+          key: ${{ secrets.EC2_DEPLOY_SSH_KEY }} # secret github
+          script: |
+            cd /home/ec2-user/cda-eval-devops
+            git pull origin main
+            docker-compose up --build -d
+            docker system prune -af --volumes

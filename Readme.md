@@ -47,4 +47,6 @@ On teste:
     - le nombre de résultats dans la réponse (2 articles de tests => expect 2)
     - le fait que les articles possèdent une propriété "titre" et "contenu" 
 
+
 # Pipeline CI/CD "Github Actions"
+/.github/workflows/ci-cd.yaml
