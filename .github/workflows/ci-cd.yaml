@@ -6,8 +6,25 @@ on:
       - master
 
 jobs:
+
   build_et_test:
     runs-on: ubuntu-latest
+
+    # Base de données de test (Github Actions)
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_DATABASE: dbname_test
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd "mysqladmin ping -h localhost"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 3
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -17,8 +34,18 @@ jobs:
         with:
           node-version: '16'
 
+      - name: Variables d'environnement github (.env de test)
+        run: |
+          echo "DB_HOST=localhost" >> $GITHUB_ENV
+          echo "DB_NAME=dbname_test" >> $GITHUB_ENV
+          echo "DB_USER=root" >> $GITHUB_ENV
+          echo "DB_PASSWORD=root" >> $GITHUB_ENV
+
       - name: Install dependencies
         run: npm install
+
+      - name: Créer la base et exécuter les migrations
+        run: npx sequelize-cli db:migrate --env test
 
       - name: Tests unitaires
         run: npm test
