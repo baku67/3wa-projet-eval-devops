@@ -1,5 +1,5 @@
 # Présentation
-Projet api de lecture d'articles en Node/Express, ORM Sequelize, BDD MySQL, PhpMyAdmin, Github Actions.
+Projet api de lecture d'articles en Node/Express, ORM Sequelize, BDD MySQL, PhpMyAdmin, Jest, Github Actions, Docker Hub.
 
 
 # Installation et lancement du projet Dockerisé
@@ -22,17 +22,11 @@ http://localhost:3000/articles
   
 - Schéma: Le schéma de la base de données se base sur le fichier de model Sequelize models/Articles.js où on définit la structure, les colonnes et les propriétés de la table Article.
   
+Entrypoint du Dockerfile Node:
 - Migrations: "npx sequelize-cli migration:generate --name create-article"
-  
 - Fixtures/seeds: "npx sequelize-cli seed:generate --name fixtures-articles"
   
 - Privilèges: On a un fichier sql "init-user-privileges.sql" qui créé un nouvel user et lui accorde des droits spécifiques concernant la base de données lors du premier démarrage du conteneur "database".
-+----------------------------------------------------------------------+
-| Grants for app_user@%                                                |
-+----------------------------------------------------------------------+
-| GRANT USAGE ON *.* TO `app_user`@`%`                                 |
-| GRANT SELECT, INSERT, UPDATE, DELETE ON `dbname`.* TO `app_user`@`%` |
-+----------------------------------------------------------------------+
 
 
 # Testing
@@ -50,5 +44,7 @@ On teste:
 
 -> Les tests passent bien sur l'environnement de github Actions lors d'un push sur la branche main (voir [/](https://github.com/baku67/3wa-projet-eval-devops/actions/runs/14406456221/job/40404081471))
 
--> Le déploiement est pas au point
-https://github.com/baku67/3wa-projet-eval-devops/actions/runs/14406456221/job/40404132106
+-> Le build de l'image et l'upload sur DockerHub fonctionnent
+https://hub.docker.com/r/nujabb/eval-devops
+
+-> Le déploiement sur AWS EC2 n'a pas été fait jusqu'au bout (je suis en train de la faire sur une instance pour mon projet personnel de formation "bubblebook" mais je n'ai pas terminé)
