@@ -39,6 +39,12 @@ http://localhost:3000/articles
 
 
 # Testing
+Tests unitaires avec Jest (app/tests/articles.test.js)
+"docker exec -it node_app npm test" (depuis le conteneur docker)
 
+On teste:
+    - le statut de la requête api get /articles
+    - le nombre de résultats dans la réponse (2 articles de tests => expect 2)
+    - le fait que les articles possèdent une propriété "titre" et "contenu" 
 
 # Pipeline CI/CD "Github Actions"
