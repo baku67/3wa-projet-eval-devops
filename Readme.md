@@ -42,7 +42,8 @@ On teste:
 # Pipeline CI/CD "Github Actions"
 /.github/workflows/ci-cd.yaml
 
--> Les tests passent bien sur l'environnement de github Actions lors d'un push sur la branche main (voir [/](https://github.com/baku67/3wa-projet-eval-devops/actions/runs/14406456221/job/40404081471))
+-> Les tests passent bien sur l'environnement de github Actions lors d'un push sur la branche main
+(https://github.com/baku67/3wa-projet-eval-devops/actions/runs/14406456221/job/40404081471)
 
 -> Le build de l'image et l'upload sur DockerHub fonctionnent
 https://hub.docker.com/r/nujabb/eval-devops
