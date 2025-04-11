@@ -5,7 +5,12 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-COPY . .
+# Copier le contenu du dossier app dans /app
+COPY app/ ./
+
+# Modification de structure du projet = oskour
+COPY config/ config/
+COPY .sequelizerc ./
 
 # Copie entrypoint.sh + permission de lecture
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
