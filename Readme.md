@@ -1,9 +1,5 @@
 # Présentation
-Node (au lieu de Python)
-Github Actions (au lieu de Jenkins)
-
-Dépendances du projet Node:
-Express, Sequelize, MySQL, dotenv
+Projet api de lecture d'articles en Node/Express, ORM Sequelize, BDD MySQL, PhpMyAdmin, Github Actions.
 
 
 # DEV
@@ -24,8 +20,25 @@ Sequelize se base sur le fichier de config ".sequelizerc" pour repérer les doss
 )
 PhpMyAdmin: http://localhost:8080 (dbname, dbuser, dbmpd)
 
+Routes de l'app:
+http://localhost:3000
+http://localhost:3000/articles
+
 
 # Schéma de BDD et privilèges
-- Le schéma de la base de données se base sur le fichier de model Sequelize models/Articles.js où on définit la structure, les colonnes et les propriétés de la table Article.
-- Fixtures: 
-- Privilèges: 
+- Schéma: Le schéma de la base de données se base sur le fichier de model Sequelize models/Articles.js où on définit la structure, les colonnes et les propriétés de la table Article.
+- Migrations: 
+- Fixtures/seeds:
+- Privilèges: On a un fichier sql "init-user-privileges.sql" qui créé un nouvel user et lui accorde des droits spécifiques concernant la base de données lors du premier démarrage du conteneur "database".
++----------------------------------------------------------------------+
+| Grants for app_user@%                                                |
++----------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `app_user`@`%`                                 |
+| GRANT SELECT, INSERT, UPDATE, DELETE ON `dbname`.* TO `app_user`@`%` |
++----------------------------------------------------------------------+
+
+
+# Testing
+
+
+# Pipeline CI/CD "Github Actions"
